@@ -1,0 +1,46 @@
+<h2 class="answer-title">Answer Question</h2>
+<a routerLink="/system-prompt" class="nav-link">System prompt</a>
+
+<div *ngIf="!conversationEnded(); else conversationLimitReached" class="form-container">
+  <form (submit)="answerQuestion()" class="form-content">
+    <label for="question" class="form-label">Question</label>
+    <div class="input-group">
+      <input
+        type="text"
+        id="question"
+        name="question"
+        placeholder="Enter your question here"
+        list="suggestions"
+        [(ngModel)]="question"
+        class="form-input"
+      />
+
+      <datalist id="suggestions">
+        <option>Are dolphin fish?</option>
+        <option>Give me a checklist for a good body-weight training</option>
+        <option>What should I view as a tourist in Vienna?</option>
+      </datalist>
+
+      <button type="submit" class="form-button">Answer</button>
+    </div>
+  </form>
+</div>
+
+
+@if (questionsAndAnwers() && questionsAndAnwers()!.length) {
+   @for (qa of questionsAndAnwers(); track qa.answer) {
+    <div class="qa-container">
+      <h3>Question</h3>
+      <p>{{ qa.question }}</p>
+
+      <h3>Answer</h3>
+      <markdown [data]="qa.answer"></markdown>
+    </div>
+
+   }
+}
+
+<ng-template #conversationLimitReached>
+  <p class="limit-message">The conversation has reched the limit of 20 turns.</p>
+  <button (click)="startOver()" class="form-button">Start Over</button>
+</ng-template>
