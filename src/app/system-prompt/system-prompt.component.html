@@ -1,0 +1,17 @@
+<h2 class="form-title">Set System Prompt</h2>
+
+<form (submit)="savePrompt()" class="form-container">
+  <label for="prompt" class="form-label">System Prompt</label>
+  <br>
+  <textarea
+    id="prompt"
+    name="prompt"
+    placeholder="Enter system prompt here"
+    [(ngModel)]="prompt"
+    class="form-textarea"
+  ></textarea>
+  <br>
+  <button type="submit" class="form-button">Save Prompt</button>
+  <br>
+  <a routerLink="/answer-question" class="form-link">Answer questions</a>
+</form>
